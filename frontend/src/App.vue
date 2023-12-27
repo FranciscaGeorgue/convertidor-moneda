@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="overflow-y-scroll">
+  <div>
     <RouterView /> 
   </div>
 </template>
