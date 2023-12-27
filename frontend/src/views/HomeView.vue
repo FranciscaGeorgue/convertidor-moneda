@@ -9,17 +9,42 @@
     </div>
     <div class="nav-right">
       <ul>
-        <li><router-link to="/login">Login</router-link></li>
-        <li><router-link to="/register">Register</router-link></li>
+        <!-- <li><router-link to="/auth/login">Login</router-link></li>
+        <li><router-link to="/auth/register">Register</router-link></li> -->
       </ul>
     </div>
   </div>
+  
+  <h1>asass</h1>
   <div class="container">
-    <!-- Contenido de la página aquí -->
-    <!-- <div class="centered-div">
-      <p>Contenido centrado</p>
-    </div> -->
-    <router-view></router-view>
+      <div class="login-container">
+        <div class="login-box">
+          <h2>Login</h2>
+          <form @submit.prevent="login">
+            <label for="name">Username:</label>
+            <input type="text" id="username" v-model="name" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" v-model="password" required>
+
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+      <div class="login-container">
+        <div class="login-box">
+          <h2>Login</h2>
+          <form @submit.prevent="login">
+            <label for="name">Username:</label>
+            <input type="text" id="username" v-model="name" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" v-model="password" required>
+
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -59,6 +84,7 @@ export default {
 }
 .container {
   display: flex;
+  vertical-align: top;
   justify-content: center;
   align-items: center;
   min-height: 100vh; /* Establece la altura mínima para ocupar toda la pantalla */
@@ -70,4 +96,56 @@ export default {
   border: 1px solid #242424;
   background-color: #242424;
 }
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+  }
+  
+  .login-box {
+    width: 500px;
+    padding: 100px;
+    border: 1px solid #18181B;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    color: #ccc;
+    font-size: 200%;
+  }
+
+  h1 {
+    color: #ccc;
+    font-size: 200%;
+    text-align: center;
+    background-color: #242424;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 8px;
+    color: #ccc;
+  }
+  
+  input {
+    padding: 8px;
+    margin-bottom: 16px;
+    background-color: #3B3B3B;
+    border-radius: 8px;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #646CFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 </style>

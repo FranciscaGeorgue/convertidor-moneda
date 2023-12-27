@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
+import cors from 'cors'
 import { db } from './config/db.js'
 import userRoutes from './routes/userRoutes.js'
 import authRoutes from './routes/authRoutes.js'
@@ -16,6 +17,24 @@ app.use(bodyParser.json());
 
 // Conectar a la BD
 db()
+
+// Configurar cors
+// const whiteList = [process.env.FRONTEND_URL] // PROD
+const whiteList = [process.env.FRONTEND_URL, undefined] // Permite pruebas por postman
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whiteList.includes(origin)) {
+            // Permite la conexion
+            callback(null, true)
+        } else {
+            // No permite la conexion
+            callback(new Error('Error de CORS'))
+        }
+    }
+}
+
+app.use(cors(corsOptions))
 
 // Definir ruta
 // app.get('/', (req,res) =>{
