@@ -1,5 +1,41 @@
-<script setup>
+<script>
+  import { useToast } from 'vue-toast-notification'
+  import { useRouter } from 'vue-router'
 
+  import AuthAPI from '../api/AuthAPI'
+  import "vue-toast-notification/dist/theme-bootstrap.css"
+
+  const toast = useToast({
+    duration: 5000,
+    position: 'bottom-right'
+  })
+
+  export default {
+    data() {
+      return {
+        montoConversion: '',
+        valorMoneda: '',
+        fechaConversion: '',
+        monto:''
+      };
+    },
+    methods: {
+      converter() {
+        console.log({ date: this.date, uf: this.uf })
+        AuthAPI.converter({ date: this.date, uf: this.uf })
+        .then((response) => {
+          console.log(response.data.UFs[0].Valor)
+          this.valorMoneda = parseFloat(response.data.UFs[0].Valor)
+          this.montoConversion = parseFloat(this.uf)
+          this.fechaConversion = this.date
+          this.monto = this.valorMoneda * this.montoConversion
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+      }
+    }
+  };
 </script>
 
 <template>
@@ -17,43 +53,33 @@
   
   <h1>asass</h1>
   <div class="container">
-      <div class="login-container">
-        <div class="login-box">
-          <h2>Login</h2>
-          <form @submit.prevent="login">
-            <label for="name">Username:</label>
-            <input type="text" id="username" v-model="name" required>
+      <div class="uf-container">
+        <div class="uf-box">
+          <h2></h2>
+          <form @submit.prevent="converter">
+            <label for="date">Fecha:</label>
+            <input type="date" id="date" v-model="date" required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" v-model="password" required>
+            <label for="uf">UF:</label>
+            <input type="uf" id="uf" v-model="uf" required>
 
-            <button type="submit">Login</button>
+            <button type="submit">Convertir a CLP</button>
           </form>
         </div>
       </div>
-      <div class="login-container">
-        <div class="login-box">
-          <h2>Login</h2>
-          <form @submit.prevent="login">
-            <label for="name">Username:</label>
-            <input type="text" id="username" v-model="name" required>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" v-model="password" required>
-
-            <button type="submit">Login</button>
-          </form>
+      <div class="uf-container">
+        <div class="uf-box">
+          <h2></h2>
+          <ul>
+            <li><Label>Monto conversión: </Label>{{ montoConversion }}</li>
+            <li><Label>Valor moneda: </Label>{{ valorMoneda }}</li>
+            <li><Label>Fecha conversión: </Label>{{ fechaConversion }}</li>
+            <li><Label>Monto: </Label>{{ monto }}</li>
+          </ul>
         </div>
       </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'Navbar'
-}
-</script>
-
 <style>
 .navbar {
   display: flex;
@@ -96,19 +122,20 @@ export default {
   border: 1px solid #242424;
   background-color: #242424;
 }
-.login-container {
+.uf-container {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 50vh;
   }
   
-  .login-box {
+  .uf-box {
     width: 500px;
     padding: 100px;
     border: 1px solid #18181B;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
+    color: #ccc;
   }
 
   h2 {
@@ -142,7 +169,7 @@ export default {
   
   button {
     padding: 10px;
-    background-color: #646CFF;
+    background-color: #646CFF !important;
     color: #fff;
     border: none;
     border-radius: 4px;
