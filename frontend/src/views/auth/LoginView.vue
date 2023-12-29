@@ -23,6 +23,7 @@
         AuthAPI.login({ name: this.name, password: this.password })
         .then((response) => {
           toast.success(response.data.msg)
+          localStorage.setItem('AUTH_TOKEN', response.data.token)
           this.$router.push({ name: 'home' })
         })
         .catch((error) => {

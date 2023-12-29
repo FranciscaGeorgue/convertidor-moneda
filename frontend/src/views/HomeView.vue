@@ -75,6 +75,8 @@
             <li><Label>Valor moneda: </Label>{{ valorMoneda }}</li>
             <li><Label>Fecha conversión: </Label>{{ fechaConversion }}</li>
             <li><Label>Monto: </Label>{{ monto }}</li>
+            <br>
+            <button type="button">Ver historial</button>
           </ul>
         </div>
       </div>
