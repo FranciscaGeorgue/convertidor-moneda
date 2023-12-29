@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AuthLayout from '../views/auth/AuthLayout.vue'
+import HistoricView from '../views/HistoricView.vue'
 import { nextTick } from 'vue'
 import AuthAPI from '../api/AuthAPI.js'
 
@@ -11,6 +11,12 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/historic',
+      name: 'historic',
+      component: HistoricView,
       meta: { requiresAuth: true }
     },
 
