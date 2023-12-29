@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import { db } from './config/db.js'
 import userRoutes from './routes/userRoutes.js'
-import authRoutes from './routes/authRoutes.js'
+import mainRoutes from './routes/mainRoutes.js'
 
 // Variables de entorno
 dotenv.config()
@@ -42,7 +42,7 @@ app.use(cors(corsOptions))
 // })
 
 app.use('/api/services', userRoutes) // cualquier peticion HTTP se busca en userRoutes
-app.use('/api/auth', authRoutes) // cualquier peticion HTTP se busca en userRoutes
+app.use('/api/auth', mainRoutes) // cualquier peticion HTTP se busca en userRoutes
 
 // Definir puerto
 const PORT = 4000 || process.env.PORT

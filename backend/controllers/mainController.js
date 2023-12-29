@@ -1,3 +1,4 @@
+import Record from '../models/Record.js';
 import User from '../models/User.js'
 import { generateJWT } from '../utils/index.js';
 
@@ -54,6 +55,38 @@ const login = async (req,res) => {
     }
 }
 
+// Registro de consulta
+const saveRecord = async (req,res) => {
+    // Validar todos los campos
+    if (Object.values(req.body).includes('')) {
+        const error = new Error('Todos los campos son obligatorios.')
+        return res.status(400).json({ msg: error.message })
+    }
+
+    // Se crea el registro
+    try {
+        const record = new Record(req.body)
+        await record.save()
+
+        res.json({
+            msg: 'Consulta guardada correctamente.'
+        })
+    } catch (error) {
+        const errorAux = new Error(error)
+        return res.status(400).json({ msg: error.message })
+    }
+}
+
+// Obtener Consultas
+const getRecords = async (req,res) => {
+    const records = await Record.find()
+    if (records.length!=0) {
+        res.json(records)
+    } else{
+        return res.status(200).json({ msg: 'El historial se encuentra vacio.' })
+    }
+}
+
 const user = async (req,res) => {
     const { user } = req
     res.json(user)
@@ -62,5 +95,7 @@ const user = async (req,res) => {
 export {
     register,
     login,
-    user
+    user,
+    saveRecord,
+    getRecords
 }
