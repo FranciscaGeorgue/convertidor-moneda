@@ -3,12 +3,23 @@
   import { useRouter } from 'vue-router'
 
   import AuthAPI from '../api/AuthAPI'
+  import RecordsAPI from '../api/RecordsAPI'
   import "vue-toast-notification/dist/theme-bootstrap.css"
 
   const toast = useToast({
     duration: 5000,
     position: 'bottom-right'
   })
+
+  // Obtener fecha actual
+  const objDate = new Date();
+  
+  const year = objDate.getFullYear();
+  const month = objDate.getMonth() + 1;
+  const day = objDate.getDate();
+  const hours = objDate.getHours();
+  const minutes = objDate.getMinutes();
+  const currentDate = `${day}-${month}-${year} ${hours}:${minutes}`
 
   export default {
     data() {
@@ -21,18 +32,31 @@
     },
     methods: {
       converter() {
-        console.log({ date: this.date, uf: this.uf })
         AuthAPI.converter({ date: this.date, uf: this.uf })
         .then((response) => {
-          console.log(response.data.UFs[0].Valor)
           this.valorMoneda = parseFloat(response.data.UFs[0].Valor)
           this.montoConversion = parseFloat(this.uf)
           this.fechaConversion = this.date
           this.monto = this.valorMoneda * this.montoConversion
+
+          RecordsAPI.saveRecord({
+              activityDate: currentDate,
+              user: 'user',
+              amount: this.montoConversion,
+              convertionDate: this.fechaConversion,
+              coinValue: this.valorMoneda,
+              finalAmount: this.monto
+          })
+          
         })
         .catch((error) => {
           console.log(error)
         });
+
+      },
+      getHistoric() {
+        console.log("getHistoric");
+        this.$router.push('/historic');
       }
     }
   };
@@ -76,7 +100,7 @@
             <li><Label>Fecha conversión: </Label>{{ fechaConversion }}</li>
             <li><Label>Monto: </Label>{{ monto }}</li>
             <br>
-            <button type="button">Ver historial</button>
+            <button type="button" @click="getHistoric">Ver historial</button>
           </ul>
         </div>
       </div>

@@ -16,9 +16,6 @@ export default {
         })
     },
     converter(data) {
-        console.log("data desde auth api")
-        console.log(data)
-
         const year = data.date.split('-')[0]
         const month = data.date.split('-')[1]
         const day = data.date.split('-')[2]

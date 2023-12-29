@@ -3,9 +3,9 @@
     import * as XLSX from 'xlsx';
 
     const store = useRecordsStore()  
-    console.log(store.records)
-    console.log(Object.values(store.records)[0].activityDate)
-    console.log(store.records[0].activityDate)
+    // console.log(store.records)
+    // console.log(Object.values(store.records)[0].activityDate)
+    // console.log(store.records[0].activityDate)
 
     const exportToExcel = async () => {
       const ws = XLSX.utils.json_to_sheet(store.records);
