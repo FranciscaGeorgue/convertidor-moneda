@@ -19,7 +19,8 @@ export default {
   },
   methods: {
     register() {
-      AuthAPI.register({ name: this.name, password: this.password, isAdmin: this.isAdmin })
+      // AuthAPI.register({ name: this.name, password: this.password, isAdmin: this.isAdmin })
+      AuthAPI.register({ name: this.name, password: this.password })
       .then((response) => {
         toast.success(response.data.msg)
       })
@@ -43,8 +44,8 @@ export default {
           <label for="password">Contraseña:</label>
           <input type="password" id="password" v-model="password" required>
 
-          <label for="isAdmin">Admin ? : 
-          <input type="checkbox" id="isAdmin" v-model="isAdmin"> </label>
+          <!-- <label for="isAdmin">Admin ? : 
+          <input type="checkbox" id="isAdmin" v-model="isAdmin"> </label> -->
   
           <button type="submit">Registrarse</button>
         </form>

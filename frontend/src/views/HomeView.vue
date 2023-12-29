@@ -27,7 +27,8 @@
         montoConversion: '',
         valorMoneda: '',
         fechaConversion: '',
-        monto:''
+        monto:'',
+        date: currentDate.split(' ')[0].split('-')[2]+`-`+currentDate.split(' ')[0].split('-')[1]+`-`+currentDate.split(' ')[0].split('-')[0]
       };
     },
     methods: {
@@ -82,7 +83,7 @@
           <h2></h2>
           <form @submit.prevent="converter">
             <label for="date">Fecha:</label>
-            <input type="date" id="date" v-model="date" required>
+            <input type="date" id="date" v-model="date">
 
             <label for="uf">UF:</label>
             <input type="uf" id="uf" v-model="uf" required>
